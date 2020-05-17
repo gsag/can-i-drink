@@ -1,2 +1,2 @@
-# can-i-drink
-A study flutter app
+# can-i-drink 
+A flutter app for study purposes. :iphone: :computer: 
