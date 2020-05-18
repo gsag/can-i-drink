@@ -1,6 +1,6 @@
-# canidrink
+# Can I drink? :beverage_box:
 
-A flutter app for study purposes
+A flutter app for study purposes.
 
 ## Getting Started
 
