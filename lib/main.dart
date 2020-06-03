@@ -1,3 +1,4 @@
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:canidrink/core/config/theme/malt_theme_data.dart';
 import 'package:flutter/material.dart';
 
@@ -24,18 +25,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String barcode = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(),
+      body: Container(
+        child: Text(this.barcode),
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: scan,
         tooltip: 'Scan',
         child: Icon(Icons.camera),
       ),
     );
+  }
+
+  Future<ScanResult> scan() async {
+    ScanResult result = await BarcodeScanner.scan();
+    print(result.type); // The result type (barcode, cancelled, failed)
+    print(result.rawContent); // The barcode content
+    print(result.format); // The barcode format (as enum)
+    print(result.formatNote);
+    setState(() {
+      this.barcode = result.rawContent;
+    });
+    return result;
   }
 }
