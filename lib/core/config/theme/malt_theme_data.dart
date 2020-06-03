@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class MaltThemeConfig {
   static final ThemeData maltThemeData = ThemeData(
-    primarySwatch: _generateMaterialColor(MaltThemeColor.PRIMARY_RED_30),
+    primarySwatch: _generateMaterialColor(MaltThemeColor.PRIMARY_BLUE),
   );
 
   //https://medium.com/@morgenroth/using-flutters-primary-swatch-with-a-custom-materialcolor-c5e0f18b95b0
