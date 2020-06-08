@@ -37,22 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Text(this.barcode),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: scan,
+        onPressed: () => {},
         tooltip: 'Scan',
         child: Icon(Icons.camera),
       ),
     );
-  }
-
-  Future<ScanResult> scan() async {
-    ScanResult result = await BarcodeScanner.scan();
-    print(result.type); // The result type (barcode, cancelled, failed)
-    print(result.rawContent); // The barcode content
-    print(result.format); // The barcode format (as enum)
-    print(result.formatNote);
-    setState(() {
-      this.barcode = result.rawContent;
-    });
-    return result;
-  }
-}
+  } //func
+} //class
