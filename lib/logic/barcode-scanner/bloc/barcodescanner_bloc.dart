@@ -22,10 +22,13 @@ class BarcodescannerBloc
     if (event is GetBarcode) {
       try {
         ScanResult result = await BarcodeScanner.scan();
-        yield BarcodeScannedState(result.rawContent);
+        bool hasValidResult = result.rawContent.isNotEmpty;
+        yield hasValidResult
+            ? BarcodeScannedState(result.rawContent)
+            : BarcodeScanInitialState();
       } //try
       on PlatformException {
-        yield BarcodeScanErrorState("erro");
+        yield BarcodeScanErrorState("Error on capturing barcode.");
       } //catch
     }
   }
