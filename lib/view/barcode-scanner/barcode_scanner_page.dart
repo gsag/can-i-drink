@@ -1,4 +1,4 @@
-import 'package:canidrink/logic/barcode-scanner/bloc/barcodescanner_bloc.dart';
+import 'package:canidrink/logic/barcode-scanner/bloc/barcode_scanner_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +13,7 @@ class BarcodeScannerPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(pageTitle)),
       body: Container(
-        child: BlocBuilder<BarcodescannerBloc, BarcodeScannerState>(
+        child: BlocBuilder<BarcodeScannerBloc, BarcodeScannerState>(
           builder: (context, state) {
             if (state is BarcodeScanInitialState) {
               print("initial");
@@ -35,7 +35,7 @@ class BarcodeScannerPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          BlocProvider.of<BarcodescannerBloc>(context).add(GetBarcode());
+          BlocProvider.of<BarcodeScannerBloc>(context).add(GetBarcode());
         },
         child: Icon(Icons.camera),
         tooltip: "Scan a barcode",

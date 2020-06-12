@@ -3,7 +3,7 @@ import 'package:canidrink/view/barcode-scanner/barcode_scanner_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'logic/barcode-scanner/bloc/barcodescanner_bloc.dart';
+import 'logic/barcode-scanner/bloc/barcode_scanner_bloc.dart';
 
 void main() => runApp(FlutterApp());
 
@@ -15,7 +15,7 @@ class FlutterApp extends StatelessWidget {
         title: appTitle,
         theme: MaltThemeConfig.maltThemeData,
         home: BlocProvider(
-          create: (context) => BarcodescannerBloc(),
+          create: (context) => BarcodeScannerBloc(),
           child: BarcodeScannerPage(
             pageTitle: appTitle,
           ),

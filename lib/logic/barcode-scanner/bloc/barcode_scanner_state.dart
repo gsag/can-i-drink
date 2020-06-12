@@ -1,4 +1,4 @@
-part of 'barcodescanner_bloc.dart';
+part of 'barcode_scanner_bloc.dart';
 
 abstract class BarcodeScannerState extends Equatable {
   const BarcodeScannerState();
