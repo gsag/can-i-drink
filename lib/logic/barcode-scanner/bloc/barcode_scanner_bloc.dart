@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:bloc/bloc.dart';
+import 'package:canidrink/logic/barcode-scanner/service/barcode-scanner-service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +11,11 @@ part 'barcode_scanner_state.dart';
 
 class BarcodeScannerBloc
     extends Bloc<BarcodeScannerEvent, BarcodeScannerState> {
+  BarcodeScannerService _barcodeScannerService = BarcodeScannerService();
+
+  BarcodeScannerBloc({BarcodeScannerService barcodeScannerService})
+      : this._barcodeScannerService = barcodeScannerService;
+
   @override
   BarcodeScannerState get initialState => BarcodeScanInitialState();
 
@@ -21,7 +27,7 @@ class BarcodeScannerBloc
 
     if (event is GetBarcode) {
       try {
-        ScanResult result = await this.scanBarcode();
+        ScanResult result = await this._barcodeScannerService.scanBarcode();
         bool hasValidResult = result.rawContent.isNotEmpty;
         yield hasValidResult
             ? BarcodeScannedState(result.rawContent)
@@ -31,10 +37,6 @@ class BarcodeScannerBloc
         yield BarcodeScanErrorState("Error on capturing barcode.");
       } //catch
     }
-  } //func
-
-  Future<ScanResult> scanBarcode() async {
-    return BarcodeScanner.scan();
   } //func
 
 } //class
