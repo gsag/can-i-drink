@@ -15,31 +15,36 @@ class BarcodeScannerPage extends StatelessWidget {
       body: Container(
         child: BlocBuilder<BarcodeScannerBloc, BarcodeScannerState>(
           builder: (context, state) {
-            if (state is BarcodeScanInitialState) {
-              print("initial");
-              return Text("Scan a barcode");
-            } else if (state is BarcodeScanningState) {
-              print("scanning");
-              return Text("Scanning");
-            } else if (state is BarcodeScannedState) {
-              print("scanned");
-              return Text(state.barcode);
-            } else if (state is BarcodeScanErrorState) {
-              print("error");
-              return Text(state.errorMessage);
-            } else {
-              return Text("Unmapped state");
-            }
+            return this.getPageContentByState(context, state);
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key("ScanFloatingActionButton"),
         onPressed: () {
           BlocProvider.of<BarcodeScannerBloc>(context).add(GetBarcode());
         },
-        child: Icon(Icons.camera),
+        child: Icon(
+          Icons.camera,
+          key: Key("ScanIcon"),
+        ),
         tooltip: "Scan a barcode",
       ),
     );
+  } //func
+
+  Widget getPageContentByState(
+      BuildContext context, BarcodeScannerState state) {
+    if (state is BarcodeScanInitialState) {
+      return Text("Scan a barcode");
+    } else if (state is BarcodeScanningState) {
+      return Text("Scanning");
+    } else if (state is BarcodeScannedState) {
+      return Text(state.barcode);
+    } else if (state is BarcodeScanErrorState) {
+      return Text(state.errorMessage);
+    } else {
+      return Text("Unmapped state");
+    }
   } //func
 } //class

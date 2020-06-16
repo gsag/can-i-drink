@@ -17,6 +17,7 @@ class FlutterApp extends StatelessWidget {
         home: BlocProvider(
           create: (context) => BarcodeScannerBloc(),
           child: BarcodeScannerPage(
+            key: Key("BarcodeScannerPage"),
             pageTitle: appTitle,
           ),
         ));

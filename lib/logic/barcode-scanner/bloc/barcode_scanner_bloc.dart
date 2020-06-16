@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:bloc/bloc.dart';
-import 'package:canidrink/logic/barcode-scanner/service/barcode-scanner-service.dart';
+import 'package:canidrink/logic/barcode-scanner/service/barcode_scanner_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 

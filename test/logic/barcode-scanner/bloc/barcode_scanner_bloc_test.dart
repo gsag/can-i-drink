@@ -1,7 +1,7 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:canidrink/logic/barcode-scanner/bloc/barcode_scanner_bloc.dart';
-import 'package:canidrink/logic/barcode-scanner/service/barcode-scanner-service.dart';
+import 'package:canidrink/logic/barcode-scanner/service/barcode_scanner_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -60,4 +60,4 @@ void main() {
       BarcodeScanErrorState("Error on capturing barcode.")
     ],
   );
-} //class
+} //func
