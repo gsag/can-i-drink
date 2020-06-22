@@ -29,27 +29,35 @@ void main() {
   blocTest(
     "Should emit [BarcodeScanningState, BarcodeScannedState] when successful",
     build: () {
-      when(service.scanBarcode()).thenAnswer(
-          (_) => Future<ScanResult>.value(new ScanResult(rawContent: "0")));
+      when(service.scanBarcode()).thenAnswer((_) => Future<ScanResult>.value(
+          new ScanResult(
+              rawContent: "7891991012345", format: BarcodeFormat.ean13)));
       return Future.value(bloc);
     },
     act: (bloc) => bloc.add(GetBarcode()),
-    expect: [BarcodeScanningState(), BarcodeScannedState("0")],
+    expect: [
+      BarcodeScanningState(),
+      BarcodeScannedState(BarcodeScannerBloc.DEFAULT_SUCCESS_SCANNED_MESSAGE)
+    ],
   );
 
   blocTest(
-    "Should emit [BarcodeScanningState, BarcodeScanInitialState] when scan result is empty",
+    "Should emit [BarcodeScanningState, BarcodeScanInitialState, BarcodeScanErrorState] when scan result is empty",
     build: () {
-      when(service.scanBarcode()).thenAnswer(
-          (_) => Future<ScanResult>.value(new ScanResult(rawContent: "")));
+      when(service.scanBarcode()).thenAnswer((_) => Future<ScanResult>.value(
+          new ScanResult(rawContent: "", format: BarcodeFormat.unknown)));
       return Future.value(bloc);
     },
     act: (bloc) => bloc.add(GetBarcode()),
-    expect: [BarcodeScanningState(), BarcodeScanInitialState()],
+    expect: [
+      BarcodeScanningState(),
+      BarcodeScanInitialState(),
+      BarcodeScanErrorState(BarcodeScannerBloc.DEFAULT_INVALID_SCAN_MESSAGE),
+    ],
   );
 
   blocTest(
-    "Should emit [BarcodeScanningState(), BarcodeScanErrorSate] when unsuccessful",
+    "Should emit [BarcodeScanningState(), BarcodeScanErrorState] when unsuccessful",
     build: () {
       when(service.scanBarcode()).thenThrow(PlatformException(code: "0"));
       return Future.value(bloc);
@@ -57,7 +65,7 @@ void main() {
     act: (bloc) => bloc.add(GetBarcode()),
     expect: [
       BarcodeScanningState(),
-      BarcodeScanErrorState("Error on capturing barcode.")
+      BarcodeScanErrorState(BarcodeScannerBloc.DEFAULT_PLATFORM_ERROR_MESSAGE)
     ],
   );
 } //func

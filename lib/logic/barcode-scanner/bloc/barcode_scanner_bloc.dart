@@ -12,6 +12,17 @@ part 'barcode_scanner_state.dart';
 
 class BarcodeScannerBloc
     extends Bloc<BarcodeScannerEvent, BarcodeScannerState> {
+  static const List<String> DESIRED_PRODUCT_CODE_PREFIXES = [
+    "78919910",
+    "78911490"
+  ];
+  static const String DEFAULT_PLATFORM_ERROR_MESSAGE =
+      "Error on capturing barcode.";
+  static const String DEFAULT_INVALID_SCAN_MESSAGE =
+      "Scan has an invalid format.";
+  static const String DEFAULT_SUCCESS_SCANNED_MESSAGE = "You can drink it!";
+  static const String DEFAULT_FAIL_SCANNED_MESSAGE = "You can't drink it!";
+
   BarcodeScannerService _barcodeScannerService;
 
   BarcodeScannerBloc({BarcodeScannerService barcodeScannerService}) {
@@ -31,15 +42,36 @@ class BarcodeScannerBloc
     if (event is GetBarcode) {
       try {
         ScanResult result = await this._barcodeScannerService.scanBarcode();
-        bool hasValidResult = result.rawContent.isNotEmpty;
-        yield hasValidResult
-            ? BarcodeScannedState(result.rawContent)
-            : BarcodeScanInitialState();
+        yield* this._getScannerStateStream(result);
       } //try
       on PlatformException {
-        yield BarcodeScanErrorState("Error on capturing barcode.");
+        yield BarcodeScanErrorState(DEFAULT_PLATFORM_ERROR_MESSAGE);
       } //catch
     }
+  } //func
+
+  Stream<BarcodeScannerState> _getScannerStateStream(ScanResult result) async* {
+    bool isEmptyResult = result != null && result.rawContent.isEmpty;
+    if (isEmptyResult) {
+      yield BarcodeScanInitialState();
+    } //if
+
+    bool isEan13Format = result.format == BarcodeFormat.ean13;
+    if (!isEan13Format) {
+      yield BarcodeScanErrorState(DEFAULT_INVALID_SCAN_MESSAGE);
+    } //if
+
+    if (!isEmptyResult && isEan13Format) {
+      yield BarcodeScannedState(this._getMessageByBarcode(result.rawContent));
+    } //if
+  } //func
+
+  String _getMessageByBarcode(String rawBarcode) {
+    bool isDesiredProductBarcode = DESIRED_PRODUCT_CODE_PREFIXES
+        .any((prefix) => rawBarcode.startsWith(prefix));
+    return isDesiredProductBarcode
+        ? DEFAULT_SUCCESS_SCANNED_MESSAGE
+        : DEFAULT_FAIL_SCANNED_MESSAGE;
   } //func
 
 } //class
