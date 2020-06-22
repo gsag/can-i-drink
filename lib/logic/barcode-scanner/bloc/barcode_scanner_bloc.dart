@@ -42,7 +42,7 @@ class BarcodeScannerBloc
     if (event is GetBarcode) {
       try {
         ScanResult result = await this._barcodeScannerService.scanBarcode();
-        yield* this._getScannerStateStream(result);
+        yield this._getScannerStateResult(result);
       } //try
       on PlatformException {
         yield BarcodeScanErrorState(DEFAULT_PLATFORM_ERROR_MESSAGE);
@@ -50,20 +50,18 @@ class BarcodeScannerBloc
     }
   } //func
 
-  Stream<BarcodeScannerState> _getScannerStateStream(ScanResult result) async* {
+  BarcodeScannerState _getScannerStateResult(ScanResult result) {
     bool isEmptyResult = result != null && result.rawContent.isEmpty;
     if (isEmptyResult) {
-      yield BarcodeScanInitialState();
+      return BarcodeScanInitialState();
     } //if
 
     bool isEan13Format = result.format == BarcodeFormat.ean13;
     if (!isEan13Format) {
-      yield BarcodeScanErrorState(DEFAULT_INVALID_SCAN_MESSAGE);
+      return BarcodeScanErrorState(DEFAULT_INVALID_SCAN_MESSAGE);
     } //if
 
-    if (!isEmptyResult && isEan13Format) {
-      yield BarcodeScannedState(this._getMessageByBarcode(result.rawContent));
-    } //if
+    return BarcodeScannedState(this._getMessageByBarcode(result.rawContent));
   } //func
 
   String _getMessageByBarcode(String rawBarcode) {

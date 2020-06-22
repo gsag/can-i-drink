@@ -42,7 +42,7 @@ void main() {
   );
 
   blocTest(
-    "Should emit [BarcodeScanningState, BarcodeScanInitialState, BarcodeScanErrorState] when scan result is empty",
+    "Should emit [BarcodeScanningState, BarcodeScanInitialState] when scan result is empty",
     build: () {
       when(service.scanBarcode()).thenAnswer((_) => Future<ScanResult>.value(
           new ScanResult(rawContent: "", format: BarcodeFormat.unknown)));
@@ -52,7 +52,6 @@ void main() {
     expect: [
       BarcodeScanningState(),
       BarcodeScanInitialState(),
-      BarcodeScanErrorState(BarcodeScannerBloc.DEFAULT_INVALID_SCAN_MESSAGE),
     ],
   );
 
