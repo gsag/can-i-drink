@@ -2,6 +2,8 @@
 
 A flutter app for study purposes.
 
+![](https://github.com/gsag/can-i-drink/blob/master/coverage/badges/badge_combined.svg)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
