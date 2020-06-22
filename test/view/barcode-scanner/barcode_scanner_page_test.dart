@@ -1,9 +1,15 @@
+import 'package:canidrink/core/config/instance_locator.dart';
 import 'package:canidrink/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    setupServiceLocator();
+  });
+
   testWidgets('Should BarcodeScannerPage have a title when loaded',
       (WidgetTester tester) async {
     //Arrange
