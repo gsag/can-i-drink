@@ -56,6 +56,20 @@ void main() {
   );
 
   blocTest(
+    "Should emit [BarcodeScanningState, BarcodeScanErrorState] when barcode format is not ean13",
+    build: () {
+      when(service.scanBarcode()).thenAnswer((_) => Future<ScanResult>.value(
+          new ScanResult(rawContent: "0", format: BarcodeFormat.unknown)));
+      return Future.value(bloc);
+    },
+    act: (bloc) => bloc.add(GetBarcode()),
+    expect: [
+      BarcodeScanningState(),
+      BarcodeScanErrorState(BarcodeScannerBloc.DEFAULT_INVALID_SCAN_MESSAGE),
+    ],
+  );
+
+  blocTest(
     "Should emit [BarcodeScanningState(), BarcodeScanErrorState] when unsuccessful",
     build: () {
       when(service.scanBarcode()).thenThrow(PlatformException(code: "0"));

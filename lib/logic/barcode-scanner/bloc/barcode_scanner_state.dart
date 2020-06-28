@@ -15,12 +15,12 @@ class BarcodeScanningState extends BarcodeScannerState {
 }
 
 class BarcodeScannedState extends BarcodeScannerState {
-  final String barcode;
+  final String scannedMessage;
 
-  const BarcodeScannedState(this.barcode);
+  const BarcodeScannedState(this.scannedMessage);
 
   @override
-  List<Object> get props => [barcode];
+  List<Object> get props => [scannedMessage];
 }
 
 class BarcodeScanErrorState extends BarcodeScannerState {

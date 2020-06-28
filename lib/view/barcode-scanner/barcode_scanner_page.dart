@@ -35,16 +35,26 @@ class BarcodeScannerPage extends StatelessWidget {
 
   Widget getPageContentByState(
       BuildContext context, BarcodeScannerState state) {
-    if (state is BarcodeScanInitialState) {
-      return Text("Scan a barcode");
-    } else if (state is BarcodeScanningState) {
-      return Text("Scanning");
-    } else if (state is BarcodeScannedState) {
-      return Text(state.barcode);
-    } else if (state is BarcodeScanErrorState) {
-      return Text(state.errorMessage);
-    } else {
-      return Text("Unmapped state");
+    switch (state.runtimeType) {
+      case BarcodeScanInitialState:
+        return this.getPageContainer(context, "Scan a barcode");
+      case BarcodeScanningState:
+        return this.getPageContainer(context, "Scanning");
+      case BarcodeScannedState:
+        BarcodeScannedState castedState = state;
+        return this.getPageContainer(context, castedState.scannedMessage);
+      default:
+        BarcodeScanErrorState castedState = state;
+        return this.getPageContainer(context, castedState.errorMessage);
     }
+  } //func
+
+  Container getPageContainer(BuildContext context, String contentStr) {
+    return Container(
+        alignment: Alignment.center,
+        child: Text(
+          contentStr,
+          style: Theme.of(context).textTheme.headline6,
+        ));
   } //func
 } //class
