@@ -88,6 +88,9 @@ lint/tmp/
 .dart_tool/*
 .dart_tool/package_config.json
 coverage/reports/*
+coverage/badges/badge_shield*
+coverage/badges/badge_line*
+coverage/badges/badge_branch*
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
