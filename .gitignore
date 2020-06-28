@@ -85,5 +85,8 @@ lint/tmp/
 # lint/reports/
 
 # Build files
-.dart_tool/flutter_build/*
+.dart_tool/*
 coverage/reports/*
+.flutter-plugins-dependencies
+.packages
+.dart_tool/package_config.json
