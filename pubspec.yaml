@@ -14,6 +14,7 @@ dependencies:
   flutter_bloc: 4.0.0
   equatable: 1.2.0
   get_it: 4.0.2
+  flare_splash_screen: 3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -24,3 +25,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/splash/
