@@ -13,25 +13,25 @@ void main() {
 } //func
 
 class FlutterApp extends StatelessWidget {
+  final String appTitle = "Can I Drink?";
+  final String splashPath = "assets/splash/splash.flr";
+  final String splashAnimationName = "Splash";
+
   @override
   Widget build(BuildContext context) {
-    final String appTitle = "Can I Drink?";
-    final String splashPath = "assets/splash/splash.flr";
-    final String splashAnimationName = "Splash";
-
     return MaterialApp(
       title: appTitle,
       theme: MaltThemeConfig.maltThemeData,
       home: SplashScreen.navigate(
         name: splashPath,
         startAnimation: splashAnimationName,
-        next: (context) => this._getHomeWidget(context, appTitle),
+        next: (context) => this.getHomePage(context, appTitle),
         until: () => Future.delayed(Duration(seconds: 2)),
       ),
     );
   } //func
 
-  Widget _getHomeWidget(BuildContext context, String appTitle) {
+  Widget getHomePage(BuildContext context, String appTitle) {
     final provider = BlocProvider(
       create: (context) => BarcodeScannerBloc(),
       child: BarcodeScannerPage(
