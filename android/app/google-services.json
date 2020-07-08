@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "208963146998",
+    "firebase_url": "https://can-i-drink.firebaseio.com",
+    "project_id": "can-i-drink",
+    "storage_bucket": "can-i-drink.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208963146998:android:79d440304b38adfaeb88d7",
+        "android_client_info": {
+          "package_name": "br.com.gsag.canidrink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208963146998-et3igooka1899kkj9luubjiskta7s4m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgO5A8XKGh5VCBk-Z1s9vGXQVQCab2n9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208963146998-et3igooka1899kkj9luubjiskta7s4m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -39,7 +39,7 @@ class BarcodeScannerPage extends StatelessWidget {
       case BarcodeScanInitialState:
         return this.getPageContainer(context, "Scan a barcode");
       case BarcodeScanningState:
-        return this.getPageContainer(context, "Scanning");
+        return this.getLoadingContentContainer();
       case BarcodeScannedState:
         BarcodeScannedState castedState = state;
         return this.getPageContainer(context, castedState.scannedMessage);
@@ -51,10 +51,18 @@ class BarcodeScannerPage extends StatelessWidget {
 
   Container getPageContainer(BuildContext context, String contentStr) {
     return Container(
-        alignment: Alignment.center,
-        child: Text(
-          contentStr,
-          style: Theme.of(context).textTheme.headline6,
-        ));
+      alignment: Alignment.center,
+      child: Text(
+        contentStr,
+        style: Theme.of(context).textTheme.headline6,
+      ),
+    );
+  } //func
+
+  Container getLoadingContentContainer() {
+    return Container(
+      alignment: Alignment.center,
+      child: CircularProgressIndicator(),
+    );
   } //func
 } //class
