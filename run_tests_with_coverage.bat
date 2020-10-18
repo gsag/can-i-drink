@@ -12,3 +12,11 @@ call %CMD_EXE%
 SET CMD_EXE=ReportGenerator  "-reports:.\coverage\lcov.info" "-targetdir:.\coverage\badges" "-sourcedirs:.\lib" "-reporttypes:Badges"
 echo %CMD_EXE%
 call %CMD_EXE%
+
+SET CMD_EXE=cd coverage/reports
+echo %CMD_EXE%
+call %CMD_EXE%
+
+SET CMD_EXE=index.html
+echo %CMD_EXE%
+call %CMD_EXE%

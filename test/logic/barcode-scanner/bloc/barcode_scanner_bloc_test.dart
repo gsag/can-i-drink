@@ -1,5 +1,6 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:canidrink/data/barcode-scanner/barcode_product_prefix_repository.dart';
 import 'package:canidrink/logic/barcode-scanner/bloc/barcode_scanner_bloc.dart';
 import 'package:canidrink/logic/barcode-scanner/service/barcode_scanner_service.dart';
 import 'package:flutter/services.dart';
@@ -8,15 +9,21 @@ import 'package:mockito/mockito.dart';
 
 class MockBarcodeScannerService extends Mock implements BarcodeScannerService {}
 
+class MockBarcodeProductPrefixRepository extends Mock
+    implements BarcodeProductPrefixRepository {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   BarcodeScannerBloc bloc;
   MockBarcodeScannerService service;
+  MockBarcodeProductPrefixRepository repository;
 
   setUp(() {
     service = MockBarcodeScannerService();
-    bloc = BarcodeScannerBloc(barcodeScannerService: service);
+    repository = MockBarcodeProductPrefixRepository();
+    bloc = BarcodeScannerBloc(
+        barcodeScannerService: service, repository: repository);
   });
 
   test("Should emit [BarcodeScanInitialState] when successful", () {
@@ -32,6 +39,8 @@ void main() {
       when(service.scanBarcode()).thenAnswer((_) => Future<ScanResult>.value(
           new ScanResult(
               rawContent: "7891991012345", format: BarcodeFormat.ean13)));
+      when(repository.getProductPrefixes())
+          .thenAnswer((_) => Future<List<String>>.value(["78919910"]));
       return Future.value(bloc);
     },
     act: (bloc) => bloc.add(GetBarcode()),
